@@ -110,8 +110,18 @@
         }
 
         .visit-count {
-            position: absolute;
-            bottom: 40px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            color: #ff2a00;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .ip-address {
+            position: fixed;
+            bottom: 50px;
             right: 20px;
             font-size: 1.2em;
             color: #ff2a00;
@@ -124,7 +134,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(25, 25, 25, 0.8)
+            background-color: rgba(25, 25, 25, 0.8);
             color: #fff;
             padding: 10px;
             text-align: center;
@@ -212,6 +222,10 @@
         by fksdev
     </div>
 
+    <div class="ip-address">
+        Ваш IP-адрес: <span id="user-ip">Загрузка...</span>
+    </div>
+
     <div class="visit-count">
         Visited: <span id="visit-count">0</span>
     </div>
@@ -221,14 +235,21 @@
         visitCount++;
         localStorage.setItem('visitCount', visitCount);
         document.getElementById('visit-count').textContent = visitCount;
-    </script>
-        <script>
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.addEventListener('keydown', function(event) {
-                if (event.ctrlKey) {
-                    event.preventDefault();
-                }
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey) {
+                event.preventDefault();
+            }
+        });
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('user-ip').textContent = data.ip;
+            })
+            .catch(error => {
+                console.error('Ошибка получения IP:', error);
+                document.getElementById('user-ip').textContent = 'Ошибка получения IP';
             });
-        </script>
+    </script>
 </body>
 </html>
