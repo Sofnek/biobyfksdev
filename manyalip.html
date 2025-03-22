@@ -21,7 +21,7 @@
             justify-content: flex-start;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Убираем лишние полосы */
+            overflow: hidden; 
         }
 
         h1 {
@@ -39,8 +39,8 @@
             padding: 20px;
             gap: 20px;
             width: 80%;
-            overflow-y: scroll; /* Прокрутка включена */
-            height: 80vh; /* Контейнер с ограниченной высотой для прокрутки */
+            overflow-y: scroll; 
+            height: 80vh;
         }
 
         .manual-box {
@@ -199,12 +199,12 @@
     </div>
 
     <script>
-        // Блокируем правую кнопку мыши
+       
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Блокируем клавишу Ctrl
+     
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey) {
                 e.preventDefault();
