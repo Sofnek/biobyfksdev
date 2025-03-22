@@ -157,6 +157,54 @@
             0% { text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; }
             100% { text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red; }
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .info-box {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .footer-text, .bottom-panel {
+                font-size: 1em;
+            }
+
+            .visit-info {
+                font-size: 1em;
+                top: 5px;
+                right: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .info-box {
+                width: 150px;
+                padding: 10px;
+            }
+
+            .top-panel {
+                top: 10px;
+                gap: 10px;
+            }
+
+            .channel-button {
+                font-size: 1em;
+                padding: 8px 15px;
+            }
+
+            .visit-info {
+                font-size: 0.9em;
+                top: 3px;
+                right: 3px;
+            }
+        }
     </style>
 </head>
 <body>
