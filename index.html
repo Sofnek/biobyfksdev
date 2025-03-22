@@ -29,7 +29,7 @@
         }
         h1 {
             font-family: 'Playfair Display', serif;
-            color: #ff2a68;
+            color: #ff2a00;
             font-size: 3.5em;
             margin-top: 20px;
             animation: slideIn 1s ease-out, glow 1.5s ease-in-out infinite alternate;
@@ -67,11 +67,20 @@
         }
         .info-content {
             font-size: 1.1em;
-            color: #ff2a68;
+            color: #ff2a00;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.7);
         }
         body {
             cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2215%22 height=%2215%22 viewBox=%220 0 15 15%22%3E%3Cpolygon points=%220,0 15,7.5 0,15%22 fill=%22red%22/%3E%3C/svg%3E') 7 7, auto;
+        }
+        .visit-count {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            color: #ff2a00;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
         }
 
         @keyframes backgroundFlow {
@@ -132,7 +141,17 @@
         </div>
     </div>
 
+    <div class="visit-count">
+        Visited: <span id="visit-count">0</span>
+    </div>
+
     <script>
+        let visitCount = localStorage.getItem('visitCount') || 0;
+        visitCount++;
+        localStorage.setItem('visitCount', visitCount);
+
+        document.getElementById('visit-count').textContent = visitCount;
+
         document.addEventListener("contextmenu", function(event) {
             event.preventDefault();
         });
