@@ -222,5 +222,13 @@
         localStorage.setItem('visitCount', visitCount);
         document.getElementById('visit-count').textContent = visitCount;
     </script>
+        <script>
+            document.addEventListener('contextmenu', event => event.preventDefault());
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey) {
+                    event.preventDefault();
+                }
+            });
+        </script>
 </body>
 </html>
