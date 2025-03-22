@@ -81,14 +81,12 @@
             box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
             transition: transform 0.2s, box-shadow 0.2s;
             animation: fadeInBox 2s ease-in-out;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            background-clip: padding-box;
+            border: 2px solid #8B0000;
         }
 
         .info-box:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            border: 2px solid rgba(255, 0, 0, 0.5);
         }
 
         .info-title {
@@ -105,28 +103,13 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.7);
         }
 
-        body {
-            cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2215%22 height=%2215%22 viewBox=%220 0 15 15%22%3E%3Cpolygon points=%220,0 15,7.5 0,15%22 fill=%22red%22/%3E%3C/svg%3E') 7 7, auto;
-        }
-
-        .visit-count {
+        .footer-text {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 1.2em;
-            color: #ff2a00;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7);
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .ip-address {
-            position: fixed;
-            bottom: 50px;
-            right: 20px;
-            font-size: 1.2em;
-            color: #ff2a00;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7);
-            animation: fadeIn 2s ease-in-out;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .bottom-panel {
@@ -142,19 +125,17 @@
             z-index: 5;
         }
 
-        .footer-text {
+        .visit-info {
             position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 10px;
+            right: 10px;
             font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @keyframes backgroundFlow {
-            0% { background-color: #000; }
-            50% { background-color: #222; }
-            100% { background-color: #000; }
+            color: #ff2a00;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: fadeIn 2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         @keyframes fadeIn {
@@ -222,12 +203,11 @@
         by fksdev
     </div>
 
-    <div class="ip-address">
-        Ваш IP-адрес: <span id="user-ip">Загрузка...</span>
-    </div>
-
-    <div class="visit-count">
-        Visited: <span id="visit-count">0</span>
+    <div class="visit-info" id="visit-info">
+        <div>Your Last visit: <span id="last-visit-time">Загрузка...</span></div>
+        <div>Your Device: <span id="device-info">Загрузка...</span></div>
+        <div>Your IP: <span id="ip-info">Загрузка...</span></div>
+        <div>Your Visits: <span id="visit-count">0</span></div>
     </div>
 
     <script>
@@ -235,21 +215,43 @@
         visitCount++;
         localStorage.setItem('visitCount', visitCount);
         document.getElementById('visit-count').textContent = visitCount;
+        let lastVisit = localStorage.getItem('lastVisit');
+        if (lastVisit) {
+            document.getElementById('last-visit-time').textContent = new Date(parseInt(lastVisit)).toLocaleString();
+        }
+        localStorage.setItem('lastVisit', Date.now());
+        function getDeviceInfo() {
+            const userAgent = navigator.userAgent;
+
+            if (/iPhone|iPad|iPod/.test(userAgent)) {
+                return 'Apple iPhone/iPad/iPod (iOS)';
+            } else if (/Android/.test(userAgent)) {
+                return 'Android Device';
+            } else if (/Windows NT/.test(userAgent)) {
+                return 'Windows PC';
+            } else if (/Macintosh/.test(userAgent)) {
+                return 'Mac OS';
+            } else {
+                return 'Unknown Device';
+            }
+        }
+
+        document.getElementById('device-info').textContent = getDeviceInfo();
+
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-info').textContent = data.ip;
+            })
+            .catch(err => {
+                document.getElementById('ip-info').textContent = 'Не удалось получить IP';
+            });
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey) {
                 event.preventDefault();
             }
         });
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('user-ip').textContent = data.ip;
-            })
-            .catch(error => {
-                console.error('Ошибка получения IP:', error);
-                document.getElementById('user-ip').textContent = 'Ошибка получения IP';
-            });
     </script>
 </body>
 </html>
