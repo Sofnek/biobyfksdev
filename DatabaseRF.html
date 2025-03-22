@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Базы данных</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .top-panel {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .channel-button {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #8B0000;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .channel-button:hover {
+            background-color: #8B0000;
+            border-color: #8B0000;
+        }
+
+        .info-container {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeIn 2s ease-in-out;
+            align-items: center;
+        }
+
+        .info-box {
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeInBox 2s ease-in-out;
+            border: 2px solid #8B0000;
+        }
+
+        .info-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .info-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.2em;
+            color: #f2f2f2;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .info-content {
+            font-size: 1.1em;
+            color: #ff2a00;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(255, 0, 0, 0.7);
+        }
+
+        .footer-text {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .download-button {
+            background-color: #8B0000;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+        }
+
+        .download-button:hover {
+            background-color: #ff2a00;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInBox {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; }
+            100% { text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red; }
+        }
+
+        .info-content-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-panel">
+        <button class="channel-button" onclick="window.open('https://t.me/sofnek1337', '_blank')">
+            GO TO CHANNEL
+        </button>
+    </div>
+
+    <div class="info-container">
+        <div class="info-box">
+            <div class="info-content-container">
+                <div>
+                    <div class="info-title">Торрент-файл с 660 ГБ данных</div>
+                    <div class="info-content">База данных BigBase 🇷🇺</div>
+                </div>
+    
+                <a href="bigbase.rar" download>
+                    <button class="download-button">
+                        Скачать
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        by fksdev
+    </div>
+
+    <script>
+        // Блокировка правой кнопки мыши
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Блокировка клавиш Ctrl, S, U, и другие
+        document.addEventListener('keydown', function(event) {
+            // Если нажаты Ctrl + S или Ctrl + U
+            if (event.ctrlKey && (event.key === 's' || event.key === 'u')) {
+                event.preventDefault();
+            }
+            // Блокируем клавиши S, U, Ctrl, и F12
+            if (event.key === 's' || event.key === 'S' || event.key === 'u' || event.key === 'U' || event.key === 'F12') {
+                event.preventDefault();
+            }
+            // Блокируем клавишу Ctrl
+            if (event.ctrlKey) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
